@@ -1,0 +1,8 @@
+# netbeans stuff
+/nbproject
+
+# build
+/build
+
+# disturbing files
+.*~
