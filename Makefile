@@ -1,7 +1,7 @@
 SRCF		= src/
 BUILDF 		= build/
 INCLUDEF	= include/
-FILES 		= main.c uah_arch_ps.c uah_sys_calls.c
+FILES 		= main.c uah_arch_ps.c uah_sys_calls.c uah_irq_handlers.c
 SOURCES		= $(FILES:%.c=$(SRCF)%.c)
 OBJECTS 	= $(SOURCES:$(SRCF)%.c=$(BUILDF)%.o)
 HEADERS		= $(SOURCES:$(SCRF)%.c=$(INCLUDEF)%.h)
