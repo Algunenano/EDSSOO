@@ -15,6 +15,7 @@ extern "C" {
 #define _EMU_IRQ_VECTOR_LENGHT 64
 #define _EMU_IRQ_VECTOR_INVALID_INSTRUCTION 16
 #define _EMU_IRQ_VECTOR_BUS_ERROR 17
+#define _EMU_IRQ_VECTOR_TRAP0 24
 
     /* Definición del vector de interrupciones */
     typedef void (*_EMU_IRQ_FUNCTION) (void);
