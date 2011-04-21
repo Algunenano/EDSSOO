@@ -1,5 +1,5 @@
 /*
- * File:   uah_irq_handlers.h
+ * File:   uah_irq_handlers.c
  * Author: Algunenano
  *
  * Created on April 22, 2011, 12:47 AM
