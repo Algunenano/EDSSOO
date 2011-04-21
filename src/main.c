@@ -5,6 +5,7 @@
  * Created on April 4, 2011, 7:07 PM
  */
 
+#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 
