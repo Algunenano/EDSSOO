@@ -29,3 +29,25 @@ void _EMU_HW_IRQ (int vectorNum){
     }
     
 }
+
+
+/* Variables that will be used as registers*/
+long UAH_REG_D0;
+long UAH_REG_D1;
+long UAH_REG_D2;
+long UAH_REG_D3;
+long UAH_REG_D4;
+long UAH_REG_D5;
+long UAH_REG_D6;
+long UAH_REG_D7;
+
+long UAH_REG_A0;
+long UAH_REG_A1;
+long UAH_REG_A2;
+long UAH_REG_A3;
+long UAH_REG_A4;
+long UAH_REG_A5;
+long UAH_REG_A6;
+long UAH_REG_A7;
+
+long UAH_REG_SR;

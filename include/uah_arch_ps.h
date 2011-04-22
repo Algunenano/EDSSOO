@@ -30,6 +30,16 @@ extern "C" {
     void _EMU_TRAP (int trapNum);
     void _EMU_HW_IRQ (int vectorNum);
 
+
+    /* REGISTERS */
+    /* D0: Contiene el número que identifica las llamadas al sistema
+     y retorna el valor devuelto por las llamadas al sistema*/
+    extern long UAH_REG_D0;
+    /* Di {i:1..7}: Registro que contiene el i-parámetro de la llamada*/
+
+
+
+
 #ifdef	__cplusplus
 }
 #endif
