@@ -18,6 +18,8 @@ extern "C" {
 
 #define _NR_UAH_pause 0
 #define _NR_UAH_exit 1
+#define _NR_UAH_open 2
+#define _NR_UAH_close 3
 
 
 #define _UAH_API_sys_call0(type,name)\
@@ -34,6 +36,29 @@ type name(P1type P1name){\
     type auxRET;\
     UAH_REG_D0=_NR_##name;\
     UAH_REG_D1=(long)P1name;\
+    _EMU_TRAP(0);\
+    auxRET=(type)UAH_REG_D0;\
+    return (type)auxRET;\
+}
+
+#define _UAH_API_sys_call2(type,name,P1type,P1name,P2type,P2name)\
+type name(P1type P1name, P2type P2name){\
+    type auxRET;\
+    UAH_REG_D0=_NR_##name;\
+    UAH_REG_D1=(long)P1name;\
+    UAH_REG_D2=(long)P2name;\
+    _EMU_TRAP(0);\
+    auxRET=(type)UAH_REG_D0;\
+    return (type)auxRET;\
+}
+
+#define _UAH_API_sys_call3(type,name,P1type,P1name,P2type,P2name,P3type,P3name)\
+type name(P1type P1name, P2type P2name, P3type P3name){\
+    type auxRET;\
+    UAH_REG_D0=_NR_##name;\
+    UAH_REG_D1=(long)P1name;\
+    UAH_REG_D2=(long)P2name;\
+    UAH_REG_D3=(long)P3name;\
     _EMU_TRAP(0);\
     auxRET=(type)UAH_REG_D0;\
     return (type)auxRET;\
