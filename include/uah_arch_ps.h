@@ -19,10 +19,8 @@ extern "C" {
 #define _EMU_IRQ_VECTOR_INT0 0
 
     /* Definición del vector de interrupciones */
-    typedef void (*_EMU_IRQ_FUNCTION) (void);
-    typedef struct _EMU_IRQ_VECTOR {
-        _EMU_IRQ_FUNCTION table[_EMU_IRQ_VECTOR_LENGHT];
-    } _EMU_IRQ_VECTOR;
+    typedef void (*_EMU_IRQ_VECTOR[_EMU_IRQ_VECTOR_LENGHT]) (void);
+
         /* Importar la tabla de interrupciones */
     extern _EMU_IRQ_VECTOR _EMU_IRQ_VECTOR_TABLE;
 

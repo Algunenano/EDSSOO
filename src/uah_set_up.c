@@ -21,7 +21,7 @@ void uah_set_up (void){
     int i;
     /* Inicialización por defecto de la tabla de vectores */
     for (i=0; i<_EMU_IRQ_VECTOR_LENGHT; i++)
-        _EMU_IRQ_VECTOR_TABLE.table[i]= _dummy_handler;
+        _EMU_IRQ_VECTOR_TABLE[i]= _dummy_handler;
 
     uah_init_traps();
     uah_init_irqs();

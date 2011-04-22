@@ -23,7 +23,7 @@ void uah_init_excep (void){
 /* Configuramos _EMU_IRQ_VECTOR_TABLE para instalar
  las funciones previas como manejadores de excepciones en 16 y 17
  */
-    _EMU_IRQ_VECTOR_TABLE.table[16] = _InvalidIns_exc_handler;
-    _EMU_IRQ_VECTOR_TABLE.table[17] = _BusError_exc_handler;
+    _EMU_IRQ_VECTOR_TABLE[16] = _InvalidIns_exc_handler;
+    _EMU_IRQ_VECTOR_TABLE[17] = _BusError_exc_handler;
     
 }
