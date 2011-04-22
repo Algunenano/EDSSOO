@@ -14,6 +14,9 @@ void _EMU_TRAP (int trapNum){
         /* Disparar la excepción de instrucción inválida */
         _EMU_IRQ_VECTOR_TABLE.table[_EMU_IRQ_VECTOR_INVALID_INSTRUCTION]();
     }
+
+    _EMU_IRQ_VECTOR_TABLE.table[_EMU_IRQ_VECTOR_TRAP0+trapNum]();
+    
 }
 
 void _EMU_HW_IRQ (int vectorNum){
@@ -21,6 +24,8 @@ void _EMU_HW_IRQ (int vectorNum){
            ((vectorNum>=32) && (vectorNum<64))) ) {
         /* Disparar la excepción de error de bus */
         _EMU_IRQ_VECTOR_TABLE.table[_EMU_IRQ_VECTOR_BUS_ERROR]();
+    } else {
+        _EMU_IRQ_VECTOR_TABLE.table[_EMU_IRQ_VECTOR_INT0+vectorNum]();
     }
     
 }
