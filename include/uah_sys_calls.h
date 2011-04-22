@@ -12,7 +12,13 @@
 extern "C" {
 #endif
 
+#include "uah_arch_ps.h"
+
     void uah_init_traps (void);
+
+#define _NR_UAH_pause 0
+#define _NR_UAH_exit 1
+
 
 #define _UAH_API_sys_call0(type,name)\
 type name(void){\
@@ -24,7 +30,7 @@ type name(void){\
 }
 
 #define _UAH_API_sys_call1(type,name,P1type,P1name)\
-type name(P1type,P1name){\
+type name(P1type P1name){\
     type auxRET;\
     UAH_REG_D0=_NR_##name;\
     UAH_REG_D1=(long)P1name;\

@@ -4,4 +4,4 @@
 	git clone git@github.com:Algunenano/EDSSOO-P1.git p1
 	cd p1
 	make
-	./build/prac1a
+	./build/prac1b
