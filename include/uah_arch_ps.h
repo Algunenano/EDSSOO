@@ -36,7 +36,13 @@ extern "C" {
      y retorna el valor devuelto por las llamadas al sistema*/
     extern long UAH_REG_D0;
     /* Di {i:1..7}: Registro que contiene el i-parámetro de la llamada*/
-
+    extern long UAH_REG_D1;
+    extern long UAH_REG_D2;
+    extern long UAH_REG_D3;
+    extern long UAH_REG_D4;
+    extern long UAH_REG_D5;
+    extern long UAH_REG_D6;
+    extern long UAH_REG_D7;
 
 
 

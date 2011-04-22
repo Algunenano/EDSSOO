@@ -19,3 +19,7 @@ void uah_init_traps (void){
      */
     _EMU_IRQ_VECTOR_TABLE.table[_EMU_IRQ_VECTOR_TRAP0] = do_sys_call_manager;
 }
+
+
+#define __NR_num_sys_calls 2
+_EMU_IRQ_VECTOR _UAH_SYS_CALLS_TABLE[__NR_num_sys_calls];
