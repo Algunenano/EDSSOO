@@ -34,7 +34,6 @@ struct UAH_PCB P_IDLE;
 struct UAH_PCB P_INIT;
 
 /* Tabla de colas de procesos listos: Una cola por prioridad */
-#define UAH_PCB_Queues_Number 8
 struct UAH_PCB_Queue UAH_PCB_Ready_Queues_TABLE[UAH_PCB_Queues_Number];
 
 

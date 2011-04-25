@@ -3,7 +3,7 @@ BUILDF 		= build/
 INCLUDEF	= include/
 FILES 		= prac2a.c \
 	uah_arch_ps.c uah_sys_calls.c uah_irq_handlers.c uah_exc_handlers.c \
-	uah_set_up.c uah_pcb.c uah_scheduler.c
+	uah_set_up.c uah_pcb.c uah_scheduler.c uah_emu_session.c
 SOURCES		= $(FILES:%.c=$(SRCF)%.c)
 OBJECTS 	= $(SOURCES:$(SRCF)%.c=$(BUILDF)%.o)
 HEADERS		= $(SOURCES:$(SCRF)%.c=$(INCLUDEF)%.h)

@@ -12,6 +12,8 @@
 extern "C" {
 #endif
 
+    #define UAH_PCB_Queues_Number 8
+    
     /* Scheduler */
     void uah_sch_init (void);
     int uah_sch_create_process (const char *name, unsigned int basePriority);
