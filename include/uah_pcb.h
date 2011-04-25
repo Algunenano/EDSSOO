@@ -26,9 +26,9 @@ extern "C" {
         struct UAH_PCB *tail;
     };
     
-    void uah_pcb_insert_queue_tail(struct UAH_PCB *pPCB, struct UAH_PCB_Queue *pQueue);
-    void uah_pcb_insert_queue_head(struct UAH_PCB *pPCB, struct UAH_PCB_Queue *pQueue);
-    void uah_pcb_extract_queue_head(struct UAH_PCB **pPCB, struct UAH_PCB_Queue *pQueue);
+    void uah_pcb_insert_queue_tail (struct UAH_PCB *pPCB, struct UAH_PCB_Queue *pQueue);
+    void uah_pcb_insert_queue_head (struct UAH_PCB *pPCB, struct UAH_PCB_Queue *pQueue);
+    void uah_pcb_extract_queue_head (struct UAH_PCB **pPCB, struct UAH_PCB_Queue *pQueue);
 
     
 
