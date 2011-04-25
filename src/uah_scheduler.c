@@ -113,7 +113,7 @@ int uah_sch_exit (int exitcode){
 }
 
 /* Emula el cambio de contexto */
-void uah_dispatcheer (void) {
+void uah_dispatcher (void) {
     UAH_PCB_CURRENT = UAH_PCB_NEXT;
     UAH_current_prio = UAH_next_prio;
 }

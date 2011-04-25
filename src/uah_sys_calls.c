@@ -5,6 +5,7 @@
  * Created on April 21, 2011, 10:35 PM
  */
 #include "uah_sys_calls.h"
+#include "uah_scheduler.h"
 #include <stdio.h>
 
 /* Macro para el tipo que retorna una función */
@@ -49,6 +50,10 @@ _ASMLink_T(int) DO_UAH_pause _ASMLink_P0(void)
 _ASMLink_T(int) DO_UAH_exit _ASMLink_P1(int, exitcode)
 
         printf("UAH_exit\t exitcode = %i\n", _ASM_P exitcode);
+        uah_sch_exit(*exitcode);
+        uah_sch_schedule();
+        uah_dispatcher();
+
         _ASMLink_Return(0);
 }
 
@@ -70,6 +75,9 @@ _ASMLink_T(int) DO_UAH_close _ASMLink_P1(int,fd)
 _ASMLink_T(int) DO_UAH_create_process _ASMLink_P2(const char*, name, unsigned int, basePriority)
         
         printf("UAH_create_process      %s      BasePriority %d\n",_ASM_P name,_ASM_P basePriority);
+        if (uah_sch_create_process(*name,*basePriority) != 0) {
+            uah_dispatcher();
+        }
         _ASMLink_Return(0);
     }
     
