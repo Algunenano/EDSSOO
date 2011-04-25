@@ -1,13 +1,13 @@
 SRCF		= src/
 BUILDF 		= build/
 INCLUDEF	= include/
-FILES 		= prac1b.c \
+FILES 		= prac2a.c \
 	uah_arch_ps.c uah_sys_calls.c uah_irq_handlers.c uah_exc_handlers.c \
 	uah_set_up.c
 SOURCES		= $(FILES:%.c=$(SRCF)%.c)
 OBJECTS 	= $(SOURCES:$(SRCF)%.c=$(BUILDF)%.o)
 HEADERS		= $(SOURCES:$(SCRF)%.c=$(INCLUDEF)%.h)
-TARGET 		= $(BUILDF)prac1b
+TARGET 		= $(BUILDF)prac2a
 
 CC		= gcc
 PACKAGES	= 
