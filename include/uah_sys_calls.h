@@ -16,10 +16,11 @@ extern "C" {
 
     void uah_init_traps (void);
 
-#define _NR_UAH_pause 0
-#define _NR_UAH_exit 1
-#define _NR_UAH_open 2
-#define _NR_UAH_close 3
+#define _NR_UAH_pause           0
+#define _NR_UAH_exit            1
+#define _NR_UAH_open            2
+#define _NR_UAH_close           3
+#define _NR_UAH_create_process  4
 
 
 #define _UAH_API_sys_call0(type,name)\

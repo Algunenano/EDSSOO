@@ -67,6 +67,12 @@ _ASMLink_T(int) DO_UAH_close _ASMLink_P1(int,fd)
 
 }
 
+_ASMLink_T(int) DO_UAH_create_process _ASMLink_P2(const char*, name, unsigned int, basePriority)
+        
+        printf("UAH_create_process      %s      BasePriority %d\n",_ASM_P name,_ASM_P basePriority);
+        _ASMLink_Return(0);
+    }
+    
 
 /* LLAMADAS AL SISTEMA */
 
@@ -78,9 +84,14 @@ _EMU_SYS_CALLS_VECTOR _UAH_SYS_CALLS_TABLE = {
     DO_UAH_pause,
     DO_UAH_exit,
     DO_UAH_open,
-    DO_UAH_close};
+    DO_UAH_close,
+    DO_UAH_create_process
+};
 
 void do_sys_call_manager (void){
+    printf("SYS_CALL  %ld ",UAH_REG_D0);
+    _UAH_SYS_CALLS_TABLE[UAH_REG_D0]();
+/*
     switch (UAH_REG_D0) {
         case (_NR_UAH_pause):{
             _UAH_SYS_CALLS_TABLE[_NR_UAH_pause]();
@@ -98,7 +109,15 @@ void do_sys_call_manager (void){
             _UAH_SYS_CALLS_TABLE[_NR_UAH_close]();
             break;
         }
+        case (_NR_UAH_create_process):{
+            _UAH_SYS_CALLS_TABLE[_NR_UAH_create_process];
+            break;
+        }
+        default:{
+            printf("UNKNOWN SYSCALL!");
+        }
     }
+*/
 
 }
 
