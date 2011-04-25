@@ -66,17 +66,18 @@ void uah_sch_init (void){
 /* Seleccionar el proceso a ejecutar */
 int uah_sch_schedule (void){
     unsigned int i = 0;
-    struct UAH_PCB *p_pcb;
+    struct UAH_PCB *p_pcb = NULL;
     
     
     /* Extraemos el proceso de mayor prioridad */
     while ((i< UAH_PCB_Queues_Number) && (p_pcb == NULL)){
-        uah_pcb_extract_queue_head(&p_pcb,&UAH_PCB_Ready_Queues_TABLE[i]);                
+        uah_pcb_extract_queue_head(&p_pcb,&UAH_PCB_Ready_Queues_TABLE[i]);
+        i++;
     }
     
     if (i != UAH_PCB_Queues_Number){
         UAH_PCB_NEXT = p_pcb;
-        UAH_next_prio = i;
+        UAH_next_prio = i-1;
         return 0;
     }
     
@@ -100,7 +101,7 @@ int uah_sch_proc_ready (struct UAH_PCB *pPCB, unsigned int priority){
 /* Crear un proceso (su PCB y añadirlo a las colas )*/
 int uah_sch_create_process (const char *name, unsigned int basePriority){
     struct UAH_PCB *pPCB = malloc (sizeof (struct UAH_PCB));
-    if (pPCB) return -1;
+    if (!pPCB) return -1;
     uah_sch_init_PCB (pPCB, name, UAH_countPID++, basePriority);
     return uah_sch_proc_ready (pPCB, basePriority);
 }

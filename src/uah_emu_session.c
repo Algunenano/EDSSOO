@@ -39,7 +39,7 @@ void EMU_Session_Show_State (void){
                     UAH_PCB_Aux->basePriority);
             UAH_PCB_Aux = UAH_PCB_Aux->next;
         }
-        printf("\tNULL\n\n");
+        printf("\tNULL\n");
     }
     printf("\n\n");
     getchar();   
