@@ -15,6 +15,7 @@ void uah_pcb_insert_queue_tail (struct UAH_PCB *pPCB,
     if (pQueue->tail)
         pQueue->tail->next = pPCB;
     pQueue->tail = pPCB;
+    pPCB->next = NULL;
     
     if (!pQueue->head)
         pQueue->head = pPCB;
@@ -27,8 +28,10 @@ void uah_pcb_insert_queue_head (struct UAH_PCB *pPCB,
     pPCB->next = pQueue->head;
     pQueue->head = pPCB;
     
-    if (!pQueue->tail)
-        pQueue->tail = pPCB;    
+    if (!pQueue->tail){
+        pQueue->tail = pPCB;
+        pPCB->next = NULL;
+    }
 }
 
 /* Extrae el PCB situado a la cabeza de la cola apuntada por pQueue.
