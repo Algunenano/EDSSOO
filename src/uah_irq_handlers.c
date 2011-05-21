@@ -5,12 +5,13 @@
  * Created on April 22, 2011, 12:47 AM
  */
 
+#include "uah_scheduler.h"
 #include "uah_irq_handlers.h"
 #include "uah_arch_ps.h"
 #include <stdio.h>
 
 void _clock_irq_handler (void){
-
+    uah_sch_round_robin();
     printf("clock irq\n");
 }
 

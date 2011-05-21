@@ -22,6 +22,9 @@ extern "C" {
     
     /* Dispatcher */
     void uah_dispatcher (void);
+    
+    /* Scheduling */
+    void uah_sch_round_robin (void);
 
 
 

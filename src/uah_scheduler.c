@@ -36,6 +36,10 @@ struct UAH_PCB P_INIT;
 /* Tabla de colas de procesos listos: Una cola por prioridad */
 struct UAH_PCB_Queue UAH_PCB_Ready_Queues_TABLE[UAH_PCB_Queues_Number];
 
+unsigned int UAH_countTicks; /* Implementa un contador de ticks */
+
+#define UAH_Quantum 2 /* Determina el valor del Quantum */
+
 
 /* Inicialización de campos del PCB */
 void uah_sch_init_PCB (struct UAH_PCB *p_pcb, const char *name, 
@@ -122,10 +126,6 @@ void uah_dispatcher (void) {
     }
 }
 
-
-unsigned int UAH_countTicks; /* Implementa un contador de ticks */
-
-#define UAH_Quantum 2 /* Determina el valor del Quantum */
 
 void uah_sch_round_robin (void) {
     UAH_countTicks++;
