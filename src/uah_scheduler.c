@@ -61,6 +61,7 @@ void uah_sch_init (void){
     
     UAH_current_prio = 6;
     UAH_PCB_CURRENT = &P_INIT;
+    UAH_countTicks = 0;
 }
 
 /* Seleccionar el proceso a ejecutar */
@@ -114,6 +115,33 @@ int uah_sch_exit (int exitcode){
 
 /* Emula el cambio de contexto */
 void uah_dispatcher (void) {
-    UAH_PCB_CURRENT = UAH_PCB_NEXT;
-    UAH_current_prio = UAH_next_prio;
+    UAH_countTicks = 0;
+    if (UAH_PCB_CURRENT != UAH_PCB_NEXT){
+        UAH_PCB_CURRENT = UAH_PCB_NEXT;
+        UAH_current_prio = UAH_next_prio;
+    }
+}
+
+
+unsigned int UAH_countTicks; /* Implementa un contador de ticks */
+
+#define UAH_Quantum 2 /* Determina el valor del Quantum */
+
+void uah_sch_round_robin (void) {
+    UAH_countTicks++;
+    
+    if (UAH_countTicks == UAH_Quantum){
+        /* Insertar el proceso current al final de la cola de 
+         * su prioridad base 
+         */
+        uah_pcb_insert_queue_tail(UAH_PCB_CURRENT,
+                &UAH_PCB_Ready_Queues_TABLE[UAH_PCB_CURRENT->basePriority]);
+        
+        /* Llama a uah_sch_schedule para seleccionar un nuevo proceso */
+        uah_sch_schedule();
+        
+        /* Llama al dispatcher */
+        uah_dispatcher();
+    }
+    
 }
