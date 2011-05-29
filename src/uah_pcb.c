@@ -43,6 +43,7 @@ struct UAH_PCB_Queue *pQueue){
     else {
         *pPCB = pQueue->head;
         pQueue->head = pQueue->head->next;
+        if (!pQueue->head) pQueue->tail = NULL;
     }   
     
 }

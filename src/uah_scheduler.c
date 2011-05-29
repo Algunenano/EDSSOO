@@ -40,6 +40,10 @@ unsigned int UAH_countTicks; /* Implementa un contador de ticks */
 
 #define UAH_Quantum 2 /* Determina el valor del Quantum */
 
+/* Manejo del incremento de prioridad de los procesos */
+#define UAH_burst_ticks 2
+unsigned int UAH_count_burst_ticks;
+
 
 /* Inicialización de campos del PCB */
 void uah_sch_init_PCB (struct UAH_PCB *p_pcb, const char *name, 
@@ -66,6 +70,7 @@ void uah_sch_init (void){
     UAH_current_prio = 6;
     UAH_PCB_CURRENT = &P_INIT;
     UAH_countTicks = 0;
+    UAH_count_burst_ticks = 0;
 }
 
 /* Seleccionar el proceso a ejecutar */
@@ -127,6 +132,20 @@ void uah_dispatcher (void) {
 }
 
 
+void uah_sch_burst_user_process (void){
+    struct UAH_PCB *pPCB;
+    int i = UAH_current_prio > 1 ? UAH_current_prio : 2;
+    
+    /* No llegamos al proceso de IDLE */
+    for (;i<UAH_PCB_Queues_Number-1;i++){
+        uah_pcb_extract_queue_head(&pPCB,&UAH_PCB_Ready_Queues_TABLE[i]);
+        while (pPCB != NULL){
+            uah_pcb_insert_queue_tail(pPCB,&UAH_PCB_Ready_Queues_TABLE[i-1]);
+            uah_pcb_extract_queue_head(&pPCB,&UAH_PCB_Ready_Queues_TABLE[i]);
+        }
+    }
+}
+
 void uah_sch_round_robin (void) {
     UAH_countTicks++;
     
@@ -142,6 +161,16 @@ void uah_sch_round_robin (void) {
         
         /* Llama al dispatcher */
         uah_dispatcher();
+    } else {
+        /* No se realiza cuando se ejecuta un proceso del sistema */
+        if (UAH_current_prio!=0){
+            UAH_count_burst_ticks++;
+            
+            if (UAH_count_burst_ticks == UAH_burst_ticks){
+                UAH_count_burst_ticks = 0;
+                uah_sch_burst_user_process();
+            }
+        }
     }
     
 }
