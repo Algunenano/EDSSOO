@@ -47,3 +47,26 @@ struct UAH_PCB_Queue *pQueue){
     }   
     
 }
+
+int uah_pcb_add_new_device (struct UAH_PCB *pPCB, struct UAH_DEVICE *pDevice){
+    int i = 0;
+    
+    while ((pPCB->openDeviceListBitMap >> i) &0x1){
+        i++;
+        
+        if (i == UAH_MAX_NUM_OPEN_DEVICES)
+            return -1;
+    }
+    
+    pPCB->openDeviceListBitMap |= (0x1 << i);
+    pPCB->openDeviceList[i] = pDevice;
+    pPCB->openDeviceCounter++;
+    
+    return i;
+}
+
+void uah_pcb_release_device (struct UAH_PCB *pPCB, int numDevice){
+    pPCB->openDeviceListBitMap &= ~(0x1 << numDevice);
+    pPCB->openDeviceList[numDevice] = NULL;
+    pPCB->openDeviceCounter--;
+}

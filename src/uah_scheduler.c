@@ -51,6 +51,8 @@ void uah_sch_init_PCB (struct UAH_PCB *p_pcb, const char *name,
     p_pcb->name = name;
     p_pcb->pid = pid;
     p_pcb->basePriority = basePriority;
+    p_pcb->openDeviceCounter = 0;
+    p_pcb->openDeviceListBitMap = 0;
 }
 
 /* Inicializa los PCBs de P_IDLE y P_INIT, el PID y las colas de procesos*/

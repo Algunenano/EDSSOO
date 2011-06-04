@@ -11,14 +11,21 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+    
+#include "uah_dev_manager.h"
 
-
+#define UAH_MAX_NUM_OPEN_DEVICES 32
     
     struct UAH_PCB{
         int pid;
         const char *name;
         unsigned int basePriority;
         struct UAH_PCB *next;
+        
+        struct UAH_DEVICE *openDeviceList[UAH_MAX_NUM_OPEN_DEVICES];
+        unsigned int openDeviceListBitMap;
+        int openDeviceCounter;
+        
     };
     
     struct UAH_PCB_Queue{
@@ -31,6 +38,8 @@ extern "C" {
     void uah_pcb_extract_queue_head (struct UAH_PCB **pPCB, struct UAH_PCB_Queue *pQueue);
 
     
+    int uah_pcb_add_new_device (struct UAH_PCB *pPCB, struct UAH_DEVICE *pDevice);
+    void uah_pcb_release_device (struct UAH_PCB *pPCB, int numDevice);
 
 
 #ifdef	__cplusplus
