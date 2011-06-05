@@ -12,6 +12,8 @@
 extern "C" {
 #endif
 
+    extern struct UAH_PCB *UAH_PCB_CURRENT;
+    
     #define UAH_PCB_Queues_Number 8
     
     /* Scheduler */

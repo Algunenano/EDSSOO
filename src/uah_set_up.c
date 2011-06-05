@@ -11,6 +11,7 @@
 #include "uah_sys_calls.h"
 #include "uah_exc_handlers.h"
 #include "uah_scheduler.h"
+#include "uah_dev_manager.h"
 #include <stdio.h>
 
 void _dummy_handler (void){
@@ -28,4 +29,5 @@ void uah_set_up (void){
     uah_init_irqs();
     uah_init_excep();
     uah_sch_init();
+    uah_init_dev_manager();
 }

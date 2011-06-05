@@ -121,7 +121,7 @@ int uah_sch_create_process (const char *name, unsigned int basePriority){
 /* Cerrar el proceso actual */
 int uah_sch_exit (int exitcode){
     free (UAH_PCB_CURRENT);
-    return 0;
+    return exitcode;
 }
 
 /* Emula el cambio de contexto */

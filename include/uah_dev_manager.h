@@ -28,6 +28,13 @@ extern "C" {
     };
     
     void uah_dev_install (struct UAH_DEVICE *pDevice);
+    
+    void uah_init_dev_manager (void);
+    
+    int uah_dev_open (char *name);
+    int uah_dev_read (int devDesc, char *readBuffer, unsigned int maxSize);
+    int uah_dev_write (int devDesc, char *writeBuffer, unsigned int size);
+    int uah_dev_close (int devDesc);
 
 
 

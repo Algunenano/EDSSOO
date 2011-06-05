@@ -21,7 +21,11 @@ extern "C" {
 #define _NR_UAH_open            2
 #define _NR_UAH_close           3
 #define _NR_UAH_create_process  4
-
+#define _NR_UAH_dev_open        5
+#define _NR_UAH_dev_read        6
+#define _NR_UAH_dev_write       7
+#define _NR_UAH_dev_close       8
+    
 
 #define _UAH_API_sys_call0(type,name)\
 type name(void){\

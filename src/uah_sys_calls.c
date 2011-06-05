@@ -6,6 +6,7 @@
  */
 #include "uah_sys_calls.h"
 #include "uah_scheduler.h"
+#include "uah_dev_manager.h"
 #include <stdio.h>
 
 /* Macro para el tipo que retorna una función */
@@ -50,7 +51,7 @@ _ASMLink_T(int) DO_UAH_pause _ASMLink_P0(void)
 _ASMLink_T(int) DO_UAH_exit _ASMLink_P1(int, exitcode)
 
         printf("UAH_exit\t exitcode = %i\n", _ASM_P exitcode);
-        uah_sch_exit(*exitcode);
+        uah_sch_exit(_ASM_P exitcode);
         uah_sch_schedule();
         uah_dispatcher();
 
@@ -59,27 +60,49 @@ _ASMLink_T(int) DO_UAH_exit _ASMLink_P1(int, exitcode)
 
 _ASMLink_T(int) DO_UAH_open _ASMLink_P3(const char *,name,int,flag,int,mode)
 
-    printf("UAH_open %s, flag %i, mode %i \n", _ASM_P name, _ASM_P flag, _ASM_P mode);
+        printf("UAH_open %s, flag %i, mode %i \n", _ASM_P name, _ASM_P flag, _ASM_P mode);
 
-    _ASMLink_Return(3);
+        _ASMLink_Return(3);
 
 }
 
 _ASMLink_T(int) DO_UAH_close _ASMLink_P1(int,fd)
 
-    printf("UAH_close %i\n", _ASM_P fd);
-    _ASMLink_Return(0);
+        printf("UAH_close %i\n", _ASM_P fd);
+        _ASMLink_Return(0);
 
 }
 
 _ASMLink_T(int) DO_UAH_create_process _ASMLink_P2(const char*, name, unsigned int, basePriority)
         
         printf("UAH_create_process      %s      BasePriority %d\n",_ASM_P name,_ASM_P basePriority);
-        if (uah_sch_create_process(*name,*basePriority) != 0) {
+        if (uah_sch_create_process(_ASM_P name, _ASM_P basePriority) != 0) {
             uah_dispatcher();
         }
         _ASMLink_Return(0);
-    }
+}
+
+_ASMLink_T(int) DO_UAH_dev_open _ASMLink_P1(char*,name)
+        printf("UAH_dev_open      %s\n",_ASM_P name);
+        _ASMLink_Return(uah_dev_open(_ASM_P name));
+}
+
+_ASMLink_T(int) DO_UAH_dev_read _ASMLink_P3(int,devDesc,char *,readBuffer,
+    unsigned int, maxSize)
+        printf("UAH_dev_read     %d\n",_ASM_P devDesc);
+        _ASMLink_Return (uah_dev_read(_ASM_P devDesc, _ASM_P readBuffer, _ASM_P maxSize));
+}
+
+_ASMLink_T(int) DO_UAH_dev_write _ASMLink_P3(int,devDesc,char *,writeBuffer,
+    unsigned int, size)
+        printf("UAH_dev_write     %d\n",_ASM_P devDesc);
+        _ASMLink_Return (uah_dev_write(_ASM_P devDesc, _ASM_P writeBuffer, _ASM_P size));
+}
+
+_ASMLink_T(int) DO_UAH_dev_close _ASMLink_P1(int,devDesc)
+        printf("UAH_dev_close     %d\n",_ASM_P devDesc);
+        _ASMLink_Return (uah_dev_close(_ASM_P devDesc));
+}
     
 
 /* LLAMADAS AL SISTEMA */
@@ -93,11 +116,15 @@ _EMU_SYS_CALLS_VECTOR _UAH_SYS_CALLS_TABLE = {
     DO_UAH_exit,
     DO_UAH_open,
     DO_UAH_close,
-    DO_UAH_create_process
+    DO_UAH_create_process,
+    DO_UAH_dev_open,
+    DO_UAH_dev_read,
+    DO_UAH_dev_write,
+    DO_UAH_dev_close
 };
 
 void do_sys_call_manager (void){
-    printf("SYS_CALL  %ld ",UAH_REG_D0);
+    printf("SYS_CALL  %ld: ",UAH_REG_D0);
     _UAH_SYS_CALLS_TABLE[UAH_REG_D0]();
 /*
     switch (UAH_REG_D0) {
