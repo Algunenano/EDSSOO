@@ -13,6 +13,7 @@ extern "C" {
 #endif
 
     void uah_init_irqs (void);
+    void uah_install_dev_irq_handler(void (*irqHandler)(void), int irqNumber);
 
 
 

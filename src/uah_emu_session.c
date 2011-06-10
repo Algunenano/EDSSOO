@@ -18,6 +18,7 @@ extern struct UAH_PCB_Queue UAH_PCB_Ready_Queues_TABLE[8];
 
 void EMU_Session_Show_State (void){
     struct UAH_PCB *UAH_PCB_Aux;
+    struct UAH_DEVICE *UAH_DEVICE_Aux;
     int auxCount = 0, auxCount2 = 0;
     
     printf ("\nSTATE\n\n");
@@ -75,6 +76,28 @@ void EMU_Session_Show_State (void){
         }
         printf("\tNULL\n");
     }
+    
+    UAH_DEVICE_Aux = deviceQueue.head;
+    
+    while (UAH_DEVICE_Aux != NULL){
+        printf("\n\tDEVICE\"%s\":", UAH_DEVICE_Aux->name);
+        printf("\tPCBQueue->");
+        UAH_PCB_Aux = UAH_DEVICE_Aux->PCB_Queue.head;
+        while (UAH_PCB_Aux != NULL){
+            printf("\t%s \tPID\t%i\tBPRIO \t%i\n",
+                    UAH_PCB_Aux->name,
+                    UAH_PCB_Aux->pid,
+                    UAH_PCB_Aux->basePriority);
+            printf("\t\t\t\t->");
+            UAH_PCB_Aux = UAH_PCB_Aux->next;
+        }
+        printf("\tNULL\n\n");
+        UAH_DEVICE_Aux = UAH_DEVICE_Aux->next;
+        
+    }
+    
+    
+    
     printf("\n\n");
     getchar();   
     

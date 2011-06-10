@@ -7,6 +7,8 @@
 
 #include "uah_device0.h"
 #include "uah_dev_manager.h"
+#include "uah_pcb.h"
+#include "uah_scheduler.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -19,12 +21,20 @@ int DEV0_open (char *deviceName){
 }
 
 int DEV0_read (int devDesc, char *readBuffer, unsigned int maxSize){
-    printf ("DEV0_read\n");
+    
+    uah_pcb_insert_queue_tail(UAH_PCB_CURRENT, &DEV0info.PCB_Queue);
+    uah_sch_schedule();
+    uah_dispatcher();
+    
     return 0;
 }
 
 int DEV0_write (int devDesc, char* readBuffer, unsigned int size){
-    printf ("DEV0_write\n");
+
+    uah_pcb_insert_queue_tail(UAH_PCB_CURRENT, &DEV0info.PCB_Queue);
+    uah_sch_schedule();
+    uah_dispatcher();
+    
     return 0;
 }
 
@@ -33,12 +43,28 @@ int DEV0_close (int devDesc){
     return 0;
 }
 
+void DEV0_irq_handler (void){
+    struct UAH_PCB* pPCB;
+    uah_pcb_extract_queue_head(&pPCB, &DEV0info.PCB_Queue);
+    if (pPCB == NULL){
+        fprintf(stderr,"DEV0_irq_handler: NO PROCESS FOUND\n");
+    } else {
+        printf("DEV0_irq_handler\n");
+        if (uah_sch_proc_ready(pPCB,pPCB->basePriority) == 1)
+            uah_dispatcher();        
+    }
+}
+
 int register_dev0 (void){
     DEV0info.name = "DEV0";
     DEV0info.deviceOpen = DEV0_open;
     DEV0info.deviceRead = DEV0_read;
     DEV0info.deviceWrite = DEV0_write;
     DEV0info.deviceClose = DEV0_close;
+    
+    DEV0info.deviceIrqHandler = DEV0_irq_handler;
+    DEV0info.irqVector = 38;
+    DEV0info.PCB_Queue.head = DEV0info.PCB_Queue.tail = NULL;
     
     DEV0info.next = NULL;
     

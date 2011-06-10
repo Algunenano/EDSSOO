@@ -21,3 +21,13 @@ void uah_init_irqs (void){
      */
     _EMU_IRQ_VECTOR_TABLE[_EMU_IRQ_VECTOR_INT0] = _clock_irq_handler;
 }
+
+void uah_install_dev_irq_handler(void (*irqHandler)(void), int irqNumber){
+    if ((irqNumber<0) || (irqNumber>7 && irqNumber<32) || (irqNumber>63)){
+        fprintf(stderr,"Error installing irq_handler (uah_install\
+irq_hander): irqNumber %d\n",irqNumber);
+    } else {
+        _EMU_IRQ_VECTOR_TABLE[irqNumber] = irqHandler;
+    }
+    
+}

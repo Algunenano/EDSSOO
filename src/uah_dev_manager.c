@@ -14,6 +14,7 @@
 
 #include "uah_pcb.h"
 #include "uah_scheduler.h"
+#include "uah_irq_handlers.h"
 
 
 struct UAH_DEVICE_Queue deviceQueue;
@@ -45,6 +46,7 @@ struct UAH_DEVICE *uah_get_device_by_name (char *name){
 /* Instala un dispositivo concreto en el sistema */
 void uah_dev_install (struct UAH_DEVICE *pDevice){
     uah_dev_insert_queue(pDevice);
+    uah_install_dev_irq_handler(pDevice->deviceIrqHandler, pDevice->irqVector);
 }
 
 void uah_init_dev_manager (void){

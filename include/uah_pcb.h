@@ -12,9 +12,10 @@
 extern "C" {
 #endif
     
-#include "uah_dev_manager.h"
 
 #define UAH_MAX_NUM_OPEN_DEVICES 32
+    
+    struct UAH_DEVICE; /* Problemas de doble referencia! */
     
     struct UAH_PCB{
         int pid;
@@ -33,6 +34,8 @@ extern "C" {
         struct UAH_PCB *tail;
     };
     
+    #include "uah_dev_manager.h"
+
     void uah_pcb_insert_queue_tail (struct UAH_PCB *pPCB, struct UAH_PCB_Queue *pQueue);
     void uah_pcb_insert_queue_head (struct UAH_PCB *pPCB, struct UAH_PCB_Queue *pQueue);
     void uah_pcb_extract_queue_head (struct UAH_PCB **pPCB, struct UAH_PCB_Queue *pQueue);

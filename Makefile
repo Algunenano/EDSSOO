@@ -1,14 +1,14 @@
 SRCF		= src/
 BUILDF 		= build/
 INCLUDEF	= include/
-FILES 		= prac4a.c \
+FILES 		= prac4b.c \
 	uah_arch_ps.c uah_sys_calls.c uah_irq_handlers.c uah_exc_handlers.c \
 	uah_set_up.c uah_pcb.c uah_scheduler.c uah_emu_session.c \
 	uah_dev_manager.c uah_device0.c uah_device1.c
 SOURCES		= $(FILES:%.c=$(SRCF)%.c)
 OBJECTS 	= $(SOURCES:$(SRCF)%.c=$(BUILDF)%.o)
 HEADERS		= $(SOURCES:$(SCRF)%.c=$(INCLUDEF)%.h)
-TARGET 		= $(BUILDF)prac4a
+TARGET 		= $(BUILDF)prac4b
 
 CC		= gcc
 PACKAGES	= 

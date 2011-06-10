@@ -11,7 +11,12 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
+    
+#include "uah_pcb.h"
+    
+    extern struct UAH_DEVICE_Queue deviceQueue;
+    
+    
     struct UAH_DEVICE {
         char *name;
         int openCounter;
@@ -20,6 +25,11 @@ extern "C" {
         int (*deviceWrite)(int devDesc, char *writeBuffer, unsigned int maxSize);
         int (*deviceClose)(int devDesc);
         struct UAH_DEVICE *next;
+        
+        struct UAH_PCB_Queue PCB_Queue; /* Cola de procesos bloqueados */
+                /* Manejador de interrupción asociado al dispositivo */
+        int irqVector;
+        void (*deviceIrqHandler) (void);
     };
     
     struct UAH_DEVICE_Queue {
@@ -27,7 +37,7 @@ extern "C" {
         struct UAH_DEVICE *tail;
     };
     
-    void uah_dev_install (struct UAH_DEVICE *pDevice);
+    void uah_dev_install (struct UAH_DEVICE *UAH_DEVICE);
     
     void uah_init_dev_manager (void);
     

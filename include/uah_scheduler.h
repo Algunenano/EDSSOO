@@ -11,6 +11,7 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+#include "uah_pcb.h"
 
     extern struct UAH_PCB *UAH_PCB_CURRENT;
     
@@ -21,6 +22,7 @@ extern "C" {
     int uah_sch_create_process (const char *name, unsigned int basePriority);
     int uah_sch_exit (int exitcode);
     int uah_sch_schedule (void);
+    int uah_sch_proc_ready (struct UAH_PCB *pPCB, unsigned int priority);
     
     /* Dispatcher */
     void uah_dispatcher (void);
