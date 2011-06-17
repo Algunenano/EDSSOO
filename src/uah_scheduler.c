@@ -98,7 +98,7 @@ int uah_sch_schedule (void){
 
 /* Se ejecuta cuando un proceso pasa al estado Ready*/
 int uah_sch_proc_ready (struct UAH_PCB *pPCB, unsigned int priority){
-    if (priority < UAH_current_prio){
+    if ((priority < UAH_current_prio) && (priority < UAH_next_prio)) {
         uah_pcb_insert_queue_head(UAH_PCB_CURRENT,
                                 &UAH_PCB_Ready_Queues_TABLE[UAH_current_prio]);
         UAH_PCB_NEXT = pPCB;
@@ -175,4 +175,15 @@ void uah_sch_round_robin (void) {
         }
     }
     
+}
+
+int uah_sch_proc_sort_list_ready (struct UAH_PCB *pPCBList){
+    int requisa = 0;
+    struct UAH_PCB* left;
+    while (pPCBList){
+        left = pPCBList->next;
+        requisa |= uah_sch_proc_ready(pPCBList,pPCBList->basePriority);
+        pPCBList = left;
+    }
+    return requisa;
 }

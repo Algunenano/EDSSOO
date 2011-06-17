@@ -27,6 +27,8 @@ extern "C" {
         unsigned int openDeviceListBitMap;
         int openDeviceCounter;
         
+        unsigned long ticks;
+        
     };
     
     struct UAH_PCB_Queue{

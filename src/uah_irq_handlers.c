@@ -8,11 +8,17 @@
 #include "uah_scheduler.h"
 #include "uah_irq_handlers.h"
 #include "uah_arch_ps.h"
+#include "uah_timing.h"
 #include <stdio.h>
 
 void _clock_irq_handler (void){
-    uah_sch_round_robin();
+    
     printf("clock irq\n");
+    
+    if (uah_timing_clk_tick())
+        uah_dispatcher();
+    else
+        uah_sch_round_robin();
 }
 
 void uah_init_irqs (void){

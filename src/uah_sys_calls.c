@@ -7,6 +7,7 @@
 #include "uah_sys_calls.h"
 #include "uah_scheduler.h"
 #include "uah_dev_manager.h"
+#include "uah_timing.h"
 #include <stdio.h>
 
 /* Macro para el tipo que retorna una función */
@@ -103,7 +104,11 @@ _ASMLink_T(int) DO_UAH_dev_close _ASMLink_P1(int,devDesc)
         printf("UAH_dev_close     %d\n",_ASM_P devDesc);
         _ASMLink_Return (uah_dev_close(_ASM_P devDesc));
 }
-    
+
+_ASMLink_T(int) DO_UAH_sleep _ASMLink_P1(int,ms)
+        printf("UAH_dev_sleep     %d\n",_ASM_P ms);
+        _ASMLink_Return (uah_timing_sleep(_ASM_P ms));
+}
 
 /* LLAMADAS AL SISTEMA */
 
@@ -120,40 +125,13 @@ _EMU_SYS_CALLS_VECTOR _UAH_SYS_CALLS_TABLE = {
     DO_UAH_dev_open,
     DO_UAH_dev_read,
     DO_UAH_dev_write,
-    DO_UAH_dev_close
+    DO_UAH_dev_close,
+    DO_UAH_sleep
 };
 
 void do_sys_call_manager (void){
     printf("SYS_CALL  %ld: ",UAH_REG_D0);
     _UAH_SYS_CALLS_TABLE[UAH_REG_D0]();
-/*
-    switch (UAH_REG_D0) {
-        case (_NR_UAH_pause):{
-            _UAH_SYS_CALLS_TABLE[_NR_UAH_pause]();
-            break;
-        }
-        case (_NR_UAH_exit):{
-            _UAH_SYS_CALLS_TABLE[_NR_UAH_exit]();
-            break;
-        }
-        case (_NR_UAH_open):{
-            _UAH_SYS_CALLS_TABLE[_NR_UAH_open]();
-            break;
-        }
-        case (_NR_UAH_close):{
-            _UAH_SYS_CALLS_TABLE[_NR_UAH_close]();
-            break;
-        }
-        case (_NR_UAH_create_process):{
-            _UAH_SYS_CALLS_TABLE[_NR_UAH_create_process];
-            break;
-        }
-        default:{
-            printf("UNKNOWN SYSCALL!");
-        }
-    }
-*/
-
 }
 
 void uah_init_traps (void){

@@ -37,7 +37,7 @@ extern "C" {
         struct UAH_DEVICE *tail;
     };
     
-    void uah_dev_install (struct UAH_DEVICE *UAH_DEVICE);
+    void uah_dev_install (struct UAH_DEVICE *pDevice);
     
     void uah_init_dev_manager (void);
     

@@ -10,6 +10,7 @@
 
 #include "uah_pcb.h"
 #include "uah_scheduler.h"
+#include "uah_timing.h"
 
 extern struct UAH_PCB *UAH_PCB_CURRENT;
 extern unsigned int UAH_current_prio;
@@ -96,9 +97,18 @@ void EMU_Session_Show_State (void){
         
     }
     
+    printf("\tTimingQueue->");
+    UAH_PCB_Aux = pTimingList;
+    while (UAH_PCB_Aux != NULL){
+        printf("\t%s \tPID \t%i \tBPRIO \t%i TICKS \t%li \n\t\t->",
+                UAH_PCB_Aux->name,
+                UAH_PCB_Aux->pid,
+                UAH_PCB_Aux->basePriority,
+                UAH_PCB_Aux->ticks);
+        UAH_PCB_Aux = UAH_PCB_Aux->next;
+    }
+    printf("\tNULL\n\n");
     
-    
-    printf("\n\n");
     getchar();   
     
 }

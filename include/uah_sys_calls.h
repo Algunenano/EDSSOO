@@ -25,6 +25,7 @@ extern "C" {
 #define _NR_UAH_dev_read        6
 #define _NR_UAH_dev_write       7
 #define _NR_UAH_dev_close       8
+#define _NR_UAH_sleep           9
     
 
 #define _UAH_API_sys_call0(type,name)\
