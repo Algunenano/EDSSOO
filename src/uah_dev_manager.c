@@ -19,7 +19,7 @@
 
 struct UAH_DEVICE_Queue deviceQueue;
 
-
+/* Insertar un dispositivo nuevo */
 void uah_dev_insert_queue (struct UAH_DEVICE *pDevice){
     pDevice->next = NULL;
     if (deviceQueue.head == NULL){
@@ -30,6 +30,7 @@ void uah_dev_insert_queue (struct UAH_DEVICE *pDevice){
     }
 }
 
+/* Buscar dispositivo */
 struct UAH_DEVICE *uah_get_device_by_name (char *name){
     struct UAH_DEVICE *pdev = deviceQueue.head;
     

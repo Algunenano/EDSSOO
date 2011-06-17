@@ -23,14 +23,14 @@ extern "C" {
     int uah_sch_exit (int exitcode);
     int uah_sch_schedule (void);
     int uah_sch_proc_ready (struct UAH_PCB *pPCB, unsigned int priority);
-    
+    int uah_sch_proc_sort_list_ready (struct UAH_PCB *pPCBList);
+
     /* Dispatcher */
     void uah_dispatcher (void);
     
     /* Scheduling */
     void uah_sch_round_robin (void);
     
-    int uah_sch_proc_sort_list_ready (struct UAH_PCB *pPCBList);
 
 
 

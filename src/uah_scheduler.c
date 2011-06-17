@@ -177,6 +177,7 @@ void uah_sch_round_robin (void) {
     
 }
 
+/* Inserta una lista de procesos a sus respectivas listas de listos */
 int uah_sch_proc_sort_list_ready (struct UAH_PCB *pPCBList){
     int requisa = 0;
     struct UAH_PCB* left;

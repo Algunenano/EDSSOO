@@ -14,8 +14,8 @@ extern "C" {
     
 #include "uah_pcb.h"
     
+    /* Lista de dispositivos disponibles */
     extern struct UAH_DEVICE_Queue deviceQueue;
-    
     
     struct UAH_DEVICE {
         char *name;

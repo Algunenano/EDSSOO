@@ -22,6 +22,7 @@ void EMU_Session_Show_State (void){
     struct UAH_DEVICE *UAH_DEVICE_Aux;
     int auxCount = 0, auxCount2 = 0;
     
+    /* Proceso actual */
     printf ("\nSTATE\n\n");
     printf ("\tCURRENT->\t%s \t PID \t%i \tDPRIO \t%i\tBPRIO\t%i\n",
                 UAH_PCB_CURRENT->name,
@@ -44,6 +45,9 @@ void EMU_Session_Show_State (void){
     }
     
     printf("\n");
+    
+    
+    /* Resto de procesos activos */
     
     for (auxCount=0; auxCount<UAH_PCB_Queues_Number;auxCount++){
         UAH_PCB_Aux = UAH_PCB_Ready_Queues_TABLE[auxCount].head;
@@ -78,6 +82,9 @@ void EMU_Session_Show_State (void){
         printf("\tNULL\n");
     }
     
+    
+    /* Lista de dispositivos */
+    
     UAH_DEVICE_Aux = deviceQueue.head;
     
     while (UAH_DEVICE_Aux != NULL){
@@ -96,6 +103,9 @@ void EMU_Session_Show_State (void){
         UAH_DEVICE_Aux = UAH_DEVICE_Aux->next;
         
     }
+    
+    
+    /* Lista de procesos dormidos*/
     
     printf("\tTimingQueue->");
     UAH_PCB_Aux = pTimingList;

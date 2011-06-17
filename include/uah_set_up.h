@@ -15,7 +15,6 @@ extern "C" {
     void uah_set_up (void);
 
 
-
 #ifdef	__cplusplus
 }
 #endif

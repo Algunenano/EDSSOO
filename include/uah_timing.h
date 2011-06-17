@@ -12,6 +12,7 @@
 extern "C" {
 #endif
     
+    /* Lista de procesos dormidos/bloqueados */
     extern struct UAH_PCB *pTimingList;
 
     int uah_timing_sleep (unsigned long ms);

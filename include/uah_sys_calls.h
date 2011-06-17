@@ -16,6 +16,7 @@ extern "C" {
 
     void uah_init_traps (void);
 
+    /* Llamadas al sistema */
 #define _NR_UAH_pause           0
 #define _NR_UAH_exit            1
 #define _NR_UAH_open            2
@@ -28,6 +29,8 @@ extern "C" {
 #define _NR_UAH_sleep           9
     
 
+    /* API de las llamadas al sistema*/
+    
 #define _UAH_API_sys_call0(type,name)\
 type name(void){\
     type auxRET;\
